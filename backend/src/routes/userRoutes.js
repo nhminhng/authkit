@@ -26,7 +26,7 @@ router.get("/login-status", userLoginStatus);
 router.post("/verify-email", protect, verifyEmail);
 
 //verify user  --> email verification
-router.post("/verify-user/:verificationToken", verifyUser)
+router.get("/verify-user/:verificationToken", verifyUser)
 
 //forgot password
 router.post("/forgot-password", forgotPassword);

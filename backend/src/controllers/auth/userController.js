@@ -221,7 +221,7 @@ export const verifyEmail = asyncHandler(async (req, res)=>{
     }).save();
 
     //verification link
-    const verificationLink = `${process.env.CLIENT_URL}/verify-email/${verificationToken}`;
+    const verificationLink = `${process.env.CLIENT_URL}/api/v1/verify-user/${verificationToken}`;
     //send email
     const subject = "Email Verification - AuthKit";
     const send_to = user.email;
