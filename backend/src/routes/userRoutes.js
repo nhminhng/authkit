@@ -1,7 +1,7 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser, getUser, updateUser, 
     userLoginStatus, verifyEmail, verifyUser, forgotPassword,
-resetPassword } from "../controllers/auth/userController.js";
+resetPassword, changePassword } from "../controllers/auth/userController.js";
 import { protect, adminMiddleware, creatorMiddleWare } from "../middleware/authMiddleware.js";
 import { deleteUser, getAllUsers } from "../controllers/auth/adminController.js";
 const router = express.Router();
@@ -33,5 +33,8 @@ router.post("/forgot-password", forgotPassword);
 
 //reset password
 router.post("/reset-password/:resetPasswordToken", resetPassword);
+
+//change password -> user must be login
+router.patch("/change-password", protect, changePassword);
 
 export default router;
