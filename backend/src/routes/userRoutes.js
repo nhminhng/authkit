@@ -1,6 +1,7 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser, getUser, updateUser, 
-    userLoginStatus, verifyEmail, verifyUser, forgotPassword } from "../controllers/auth/userController.js";
+    userLoginStatus, verifyEmail, verifyUser, forgotPassword,
+resetPassword } from "../controllers/auth/userController.js";
 import { protect, adminMiddleware, creatorMiddleWare } from "../middleware/authMiddleware.js";
 import { deleteUser, getAllUsers } from "../controllers/auth/adminController.js";
 const router = express.Router();
@@ -29,5 +30,8 @@ router.post("/verify-user/:verificationToken", verifyUser)
 
 //forgot password
 router.post("/forgot-password", forgotPassword);
+
+//reset password
+router.post("/reset-password/:resetPasswordToken", resetPassword);
 
 export default router;
