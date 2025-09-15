@@ -1,9 +1,26 @@
 import express from "express";
-import { registerUser, loginUser, logoutUser, getUser, updateUser, 
-    userLoginStatus, verifyEmail, verifyUser, forgotPassword,
-resetPassword, changePassword } from "../controllers/auth/userController.js";
-import { protect, adminMiddleware, creatorMiddleWare } from "../middleware/authMiddleware.js";
-import { deleteUser, getAllUsers } from "../controllers/auth/adminController.js";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getUser,
+  updateUser,
+  userLoginStatus,
+  verifyEmail,
+  verifyUser,
+  forgotPassword,
+  resetPassword,
+  changePassword,
+} from "../controllers/auth/userController.js";
+import {
+  protect,
+  adminMiddleware,
+  creatorMiddleWare,
+} from "../middleware/authMiddleware.js";
+import {
+  deleteUser,
+  getAllUsers,
+} from "../controllers/auth/adminController.js";
 const router = express.Router();
 
 //user routes
@@ -26,7 +43,7 @@ router.get("/login-status", userLoginStatus);
 router.post("/verify-email", protect, verifyEmail);
 
 //verify user  --> email verification
-router.get("/verify-user/:verificationToken", verifyUser)
+router.post("/verify-user/:verificationToken", verifyUser);
 
 //forgot password
 router.post("/forgot-password", forgotPassword);
