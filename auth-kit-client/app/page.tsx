@@ -1,7 +1,8 @@
 "use client";
 import { useUserContext } from "@/context/userContext";
 import useRedirect from "@/hooks/useUserRedirect";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import ChangePasswordForm from "./Components/auth/ChangePasswordForm/ChangePasswordForm";
 
 export default function Home() {
   useRedirect("/login");
@@ -12,6 +13,8 @@ export default function Home() {
     userState,
     updateUser,
     emailVerification,
+    allUsers,
+    deleteUser,
   } = useUserContext();
   const { name, photo, isVerified, bio } = user;
 
@@ -65,7 +68,7 @@ export default function Home() {
         </h1>
 
         {isOpen && (
-          <form className="mt-4 max-w-[400px] w-full">
+          <form className="mt-4 px-8 py-4 max-w-[520px] w-full rounded-md">
             <div className="flex flex-col">
               <label htmlFor="bio" className="mb-1 text-[#999]">
                 Bio
@@ -87,6 +90,42 @@ export default function Home() {
           </form>
         )}
       </section>
+      <div className="mt-4 flex gap-8">
+        <div className="flex-1">
+          <ChangePasswordForm />
+        </div>
+        <div className="flex-1">
+          {user.role === "admin" && (
+            <ul>
+              {allUsers.map(
+                (user: any, i: number) =>
+                  user.role !== "admin" && (
+                    <li
+                      key={i}
+                      className="mb-2 px-2 py-3 border grid grid-cols-4 items-center gap-8 rounded-md"
+                    >
+                      <img
+                        src={user.photo}
+                        alt={user.name}
+                        className="w-[40px]  h-[40px] rounded-full"
+                      />
+                      <p>{user.name}</p>
+                      <p>{user.bio}</p>
+                      <button
+                        className="bg-red-500 text-white p-2 rounded-md"
+                        onClick={() => {
+                          deleteUser(user._id);
+                        }}
+                      >
+                        Delete User
+                      </button>
+                    </li>
+                  )
+              )}
+            </ul>
+          )}
+        </div>
+      </div>
     </main>
   );
 }
